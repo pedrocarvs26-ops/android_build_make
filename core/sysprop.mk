@@ -312,8 +312,7 @@ _prop_vars_ += \
 endif
 
 _blacklist_names_ := \
-    $(PRODUCT_SYSTEM_PROPERTY_BLACKLIST) \
-    ro.product.first_api_level
+    $(PRODUCT_SYSTEM_PROPERTY_BLACKLIST)
 
 INSTALLED_BUILD_PROP_TARGET := $(TARGET_OUT)/build.prop
 

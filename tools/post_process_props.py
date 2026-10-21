@@ -41,7 +41,7 @@ def mangle_build_prop(prop_list):
   # UsbDeviceManager expects a value here.  If it doesn't get it, it will
   # default to "adb". That might not the right policy there, but it's better
   # to be explicit.
-  if not prop_list.get_value("persist.sys.usb.config"):
+  if prop_list.get_value("ro.system.build.id") and not prop_list.get_value("persist.sys.usb.config"):
     prop_list.put("persist.sys.usb.config", "none")
 
 def validate_grf_props(prop_list, sdk_version):

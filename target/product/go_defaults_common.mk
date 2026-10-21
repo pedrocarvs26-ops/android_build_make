@@ -21,8 +21,10 @@
 PRODUCT_VENDOR_PROPERTIES += \
      ro.config.low_ram=true \
 
-# Speed profile services and wifi-service to reduce RAM and storage.
-PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
+# Android 12 removeu o filtro speed-profile: o dex2oat falha com
+# "Unknown argument: speed-profile" e o dexpreopt do javalib nao roda.
+# verify nao compila nada, que e o que um device low-RAM quer.
+PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed
 
 # Always preopt extracted APKs to prevent extracting out of the APK for gms
 # modules.
