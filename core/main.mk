@@ -880,8 +880,8 @@ endef
 # $(1): the prefix of the module doing the linking
 # $(2): the prefix of the linked module
 define link-type-error
-$(shell $(call echo-error,$($(1).MAKEFILE),"$(call link-type-name,$(1)) ($($(1).TYPE)) can not link against $(call link-type-name,$(2)) ($(3))"))\
-$(eval link_type_error := true)
+$(shell $(call echo-warning,$($(1).MAKEFILE),"$(call link-type-name,$(1)) ($($(1).TYPE)) can not link against $(call link-type-name,$(2)) ($(3))"))\
+$(if $(filter true,$(BUILD_BROKEN_TREBLE_LINK_CHECK)),,$(eval link_type_error := true))
 endef
 
 link-type-missing :=

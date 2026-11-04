@@ -2631,17 +2631,21 @@ def CheckSize(data, target, info_dict):
 
   fs_type = None
   limit = None
-  if info_dict["fstab"]:
+  if info_dict.get(target + "_size"):
+    limit = int(info_dict[target + "_size"], 0) if isinstance(info_dict[target + "_size"], str) else info_dict[target + "_size"]
+    fs_type = "raw"
+  if info_dict.get("fstab"):
     if mount_point == "/userdata":
       mount_point = "/data"
-    p = info_dict["fstab"][mount_point]
-    fs_type = p.fs_type
-    device = p.device
-    if "/" in device:
-      device = device[device.rfind("/")+1:]
-    limit = info_dict.get(device + "_size", 0)
-    if isinstance(limit, str):
-      limit = int(limit, 0)
+    p = info_dict["fstab"].get(mount_point)
+    if p:
+      fs_type = p.fs_type
+      device = p.device
+      if "/" in device:
+        device = device[device.rfind("/")+1:]
+      limit = info_dict.get(device + "_size", limit or 0)
+      if isinstance(limit, str):
+        limit = int(limit, 0)
   if not fs_type or not limit:
     return
 
